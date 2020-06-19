@@ -22,7 +22,7 @@ function varargout = danhGia(varargin)
 
 % Edit the above text to modify the response to help danhGia
 
-% Last Modified by GUIDE v2.5 18-Jun-2020 22:54:03
+% Last Modified by GUIDE v2.5 19-Jun-2020 14:17:38
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -106,8 +106,8 @@ handles.anhThuyVan=anhThuyVan;
 guidata(hObject, handles);
 
 
-% --- Executes on button press in btnClear.
-function btnClear_Callback(hObject, eventdata, handles)
+% --- Executes on button press in btnDanhGia.
+function btnDanhGia_Callback(hObject, eventdata, handles)
 % Truoc tan cong
 if(isfield(handles, 'anhGoc')==0 ||isfield(handles, 'anhThuyVan')==0 )
   msgbox('Invalid Value. Please select image!', 'Error','error');
@@ -117,7 +117,7 @@ anhThuyVan=handles.anhThuyVan;
 axes(handles.axes2);        
 imshow(anhThuyVan);
 
-% danh gia chi tieu truoc tan cong
+% danh gia chi tieu
 [ncc, psnr, mse] = danhGiaChiTieu(anhGoc, anhThuyVan);
 
 set(handles.txt_ncc,'String',ncc);
@@ -130,7 +130,15 @@ function  Image=OpenImage()
 Image=imread(strcat(anhmau,fname));
 
 
-
-
-
-
+% --- Executes on button press in showHistogram.
+function showHistogram_Callback(hObject, eventdata, handles)
+% hObject    handle to showHistogram (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+figure;
+subplot(2,1,1)
+histogram(handles.anhGoc);
+xlabel('Anh phủ');
+subplot(2,1,2)
+histogram(handles.anhThuyVan);
+xlabel('Anh thuỷ vân');

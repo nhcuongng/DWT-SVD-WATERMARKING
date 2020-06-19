@@ -144,29 +144,6 @@ handles.watermarked_image = anhDaThuyVan;
 guidata(hObject, handles);
 
 
-
-function keyArnold_Callback(hObject, eventdata, handles)
-% hObject    handle to keyArnold (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of keyArnold as text
-%        str2double(get(hObject,'String')) returns contents of keyArnold as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function keyArnold_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to keyArnold (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
 % --- Executes on button press in luuAnh.
 function luuAnh_Callback(hObject, eventdata, handles)
 % hObject    handle to luuAnh (see GCBO)
@@ -176,21 +153,6 @@ function luuAnh_Callback(hObject, eventdata, handles)
     'All support image files';'*.jpg;*.jpeg','JPEG files(*.jpg;*.jpeg)';'*.gif','GIF files (*.gif)';...
     '*.tif;*.tiff','TIFF files (*.tif;*.tiff)';'*.bmp','Bitmap files (*.bmp)';'*.png','PNG files (*.png)'},'Luu dang file anh');
 imwrite(mat2gray(handles.watermarked_image), strcat(pathname,filename));
-
-
-
-% --- Executes on button press in showHistogram.
-function showHistogram_Callback(hObject, eventdata, handles)
-% hObject    handle to showHistogram (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-figure;
-subplot(2,1,1)
-histogram(handles.anhPhu);
-xlabel('Anh phủ');
-subplot(2,1,2)
-histogram(handles.watermarked_image);
-xlabel('Anh bí mật');
 
 
 function rSVD=mysvd(img1,img2)

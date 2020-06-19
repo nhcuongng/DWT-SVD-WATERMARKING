@@ -133,29 +133,6 @@ handles.anhTachThuyVan = anhTachThuyVan;
 guidata(hObject, handles);
 
 
-
-function keyArnold_Callback(hObject, eventdata, handles)
-% hObject    handle to keyArnold (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of keyArnold as text
-%        str2double(get(hObject,'String')) returns contents of keyArnold as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function keyArnold_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to keyArnold (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
 % --- Executes on button press in luuAnh.
 function luuAnh_Callback(hObject, eventdata, handles)
 % hObject    handle to luuAnh (see GCBO)
@@ -167,13 +144,6 @@ global var;
     '*.tif;*.tiff','TIFF files (*.tif;*.tiff)';'*.bmp','Bitmap files (*.bmp)';'*.png','PNG files (*.png)'},'Luu dang file anh');
 var=strcat(pathname,filename);
 imwrite(uint8(handles.watermark_logo_extracted_after_inver_arnold),var);
-
-
-% --- Executes on button press in showHistogram.
-function showHistogram_Callback(hObject, eventdata, handles)
-% hObject    handle to showHistogram (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 
 
 function rSVD=my_svd(out1,out2)
