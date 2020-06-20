@@ -84,6 +84,10 @@ anhPhu = ChangeImageToGray(anhPhu);
 axes(handles.hienThiAnhPhu)  %Fisso l'axes per il plot
 imshow(anhPhu)
 
+anhPhu = medfilt2(anhPhu);
+axes(handles.hienThiAnhKhuNhieu)  %Fisso l'axes per il plot
+imshow(anhPhu)
+
 handles.anhPhu = anhPhu;
 guidata(hObject, handles);
 

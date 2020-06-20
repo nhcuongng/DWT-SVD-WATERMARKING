@@ -1,4 +1,4 @@
-I = rgb2gray(imread('act_logo.tif'));
+I = rgb2gray(imread('lena.png'));
 J = imnoise(I,'salt & pepper',0.02);
 
 Kaverage = filter2(fspecial('average',3),J)/255;

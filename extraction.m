@@ -22,7 +22,7 @@ function varargout = extraction(varargin)
 
 % Edit the above text to modify the response to help extraction
 
-% Last Modified by GUIDE v2.5 18-Jun-2020 17:15:26
+% Last Modified by GUIDE v2.5 20-Jun-2020 22:51:44
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -94,9 +94,15 @@ function chonAnhGoc_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 [fname, anhmau]=uigetfile({'*.jpg;*.png;*.tif;*bmp'},'Chon anh y te goc'); %select image
 anhGoc=imread(strcat(anhmau,fname));
-anhGoc = rgb2gray(anhGoc);
-axes(handles.hienThiAnhGoc)  %Fisso l'axes per il plot
+
+anhGoc = ChangeImageToGray(anhGoc);
+axes(handles.hienThiAnhGocNhieu)  %Fisso l'axes per il plot
 imshow(anhGoc)
+
+anhGoc = medfilt2(anhGoc);
+axes(handles.hienThiAnhKhuNhieu)  %Fisso l'axes per il plot
+imshow(anhGoc)
+
 handles.AnhGoc= anhGoc;
 guidata(hObject, handles);
 
@@ -156,3 +162,11 @@ function rSVD=my_svd(out1,out2)
   Smark = (Sew - Si)/alpha;
 
      rSVD =  Uw*Smark*Vw';
+
+     function outImage = ChangeImageToGray(img)
+[r, c, p]=size(img);
+if(p==3)
+    outImage = rgb2gray(img);
+else
+    outImage = img;
+end
