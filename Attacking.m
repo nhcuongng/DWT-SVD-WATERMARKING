@@ -78,7 +78,7 @@ varargout{1} = handles.output;
 function AttackNoise_Callback(hObject, eventdata, handles)
 %Tan cong lam nhieu anh
 if(isfield(handles, 'anhGoc')==0 ||isfield(handles, 'anhThuyVan')==0 )
-  msgbox('Invalid Value. Please select image!', 'Error','error');
+  msgbox('Bạn chưa chọn ảnh!!', 'Error','error');
 else
 anhGoc=handles.anhGoc;
 anhThuyVan=handles.anhThuyVan;
@@ -152,7 +152,7 @@ guidata(hObject, handles);
 function btnClear_Callback(hObject, eventdata, handles)
 % Truoc tan cong
 if(isfield(handles, 'anhGoc')==0 ||isfield(handles, 'anhThuyVan')==0 )
-  msgbox('Invalid Value. Please select image!', 'Error','error');
+  msgbox('Bạn chưa chọn ảnh!!', 'Error','error');
 else
 anhGoc=handles.anhGoc;
 anhThuyVan=handles.anhThuyVan;
@@ -291,7 +291,7 @@ function AttackOther_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 % Cac Loai tan cong khac
 if(isfield(handles, 'anhGoc')==0 ||isfield(handles, 'anhThuyVan')==0 )
-  msgbox('Invalid Value. Please select image!', 'Error','error');
+  msgbox('Bạn chưa chọn ảnh!!', 'Error','error');
 else
 anhGoc=handles.anhGoc;
 anhThuyVan=handles.anhThuyVan;

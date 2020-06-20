@@ -110,7 +110,7 @@ guidata(hObject, handles);
 function btnDanhGia_Callback(hObject, eventdata, handles)
 % Truoc tan cong
 if(isfield(handles, 'anhGoc')==0 ||isfield(handles, 'anhThuyVan')==0 )
-  msgbox('Invalid Value. Please select image!', 'Error','error');
+  msgbox('Bạn chưa chọn ảnh!!', 'Error','error');
 else
 anhGoc=handles.anhGoc;
 anhThuyVan=handles.anhThuyVan;

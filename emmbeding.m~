@@ -124,31 +124,31 @@ function batDauNhung_Callback(hObject, eventdata, handles)
 %watermarked_image = watermark_embedding(handles.cover_image, handles.watermark_logo_after_arnold, false);
 % watermarked_image = dwt_svd_emmbed(handles.cover_image, handles.watermark_logo_after_arnold, handles.alpha);
 
-if(isfield(handles, 'anhBiMat')==0 ||isfield(handles, 'anhPhu')==0 )
-     msgbox('Bạn chưa chọn ảnh!!', 'Error','error');
+if(isfield(handles, 'anhGoc')==0 ||isfield(handles, 'anhThuyVan')==0 )
+  msgbox('Bạn chưa chọn ảnh!!', 'Error','error');
 else
-    %start
-    anhBiMat = handles.anhBiMat;
-    anhPhu= handles.anhPhu;
+%start
+anhBiMat = handles.anhBiMat;
+anhPhu= handles.anhPhu;
 
-    [anhphu_LL1,anhphu_LH1,anhphu_HL1,anhphu_HH1]=dwt2(anhPhu,'haar');
-    % thay doi kich thuoc anh thuy van = anhgoc_HH1
-    [r, c, p]=size(anhphu_HH1);
-    anhBiMat = imresize(anhBiMat,[r, c]);
+[anhphu_LL1,anhphu_LH1,anhphu_HL1,anhphu_HH1]=dwt2(anhPhu,'haar');
+% thay doi kich thuoc anh thuy van = anhgoc_HH1
+[r, c, p]=size(anhphu_HH1);
+anhBiMat = imresize(anhBiMat,[r, c]);
 
-    % Nhung dung SVD
-    water_marked_HH1=mysvd(double(anhphu_HH1),double(anhBiMat));
+% Nhung dung SVD
+water_marked_HH1=mysvd(double(anhphu_HH1),double(anhBiMat));
 
-    %su  dung idwt2 
-    watermarked=idwt2(anhphu_LL1,anhphu_LH1,anhphu_HL1,water_marked_HH1,'haar');
-    anhDaThuyVan=uint8(watermarked); % ket qua
+%su  dung idwt2 
+watermarked=idwt2(anhphu_LL1,anhphu_LH1,anhphu_HL1,water_marked_HH1,'haar');
+anhDaThuyVan=uint8(watermarked); % ket qua
 
-    % nhung thanh cong và hiển thi kêt quả
-    axes(handles.anhDaNhung);
-    imshow(anhDaThuyVan);
-    handles.watermarked_image = anhDaThuyVan;
+% nhung thanh cong và hiển thi kêt quả
+axes(handles.anhDaNhung);
+imshow(anhDaThuyVan);
+handles.watermarked_image = anhDaThuyVan;
 
-    msgbox("Nhúng thành công thuỷ vân")
+msgbox("Nhúng thành công thuỷ vân")
 end
 guidata(hObject, handles);
 
@@ -158,15 +158,11 @@ function luuAnh_Callback(hObject, eventdata, handles)
 % hObject    handle to luuAnh (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-if(isfield(handles, 'anhBiMat')==0 ||isfield(handles, 'anhPhu')==0 )
-     msgbox('Bạn chưa chọn ảnh!!', 'Error','error');
-else
-    [filename,pathname,filterindex]=uiputfile({'*.jpg;*.jpeg;*.gif;*.tif;*.tiff;*.rgb;*.bmp;*.png',...
-        'All support image files';'*.jpg;*.jpeg','JPEG files(*.jpg;*.jpeg)';'*.gif','GIF files (*.gif)';...
-        '*.tif;*.tiff','TIFF files (*.tif;*.tiff)';'*.bmp','Bitmap files (*.bmp)';'*.png','PNG files (*.png)'},'Luu dang file anh');
-    imwrite(mat2gray(handles.watermarked_image), strcat(pathname,filename));
-    msgbox("Lưu thành công thuỷ vân")
-end
+[filename,pathname,filterindex]=uiputfile({'*.jpg;*.jpeg;*.gif;*.tif;*.tiff;*.rgb;*.bmp;*.png',...
+    'All support image files';'*.jpg;*.jpeg','JPEG files(*.jpg;*.jpeg)';'*.gif','GIF files (*.gif)';...
+    '*.tif;*.tiff','TIFF files (*.tif;*.tiff)';'*.bmp','Bitmap files (*.bmp)';'*.png','PNG files (*.png)'},'Luu dang file anh');
+imwrite(mat2gray(handles.watermarked_image), strcat(pathname,filename));
+msgbox("Lưu thành công thuỷ vân")
 
 
 function rSVD=mysvd(img1,img2)

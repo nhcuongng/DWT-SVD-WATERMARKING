@@ -115,27 +115,33 @@ function batDauTrichXuat_Callback(hObject, eventdata, handles)
 % print_figures = false;
 %watermark_logo_extracted = watermark_extraction(handles.watermarked_image, handles.watermark_logo, true);
 % watermark_logo_extracted = dwt_svd_extract(handles.watermark_logo, handles.watermarked_image, 0.1);
-AnhDaNhungThuyVan = handles.AnhDaNhungThuyVan;
-AnhGoc=handles.AnhGoc;
+if(isfield(handles, 'AnhDaNhungThuyVan')==0 ||isfield(handles, 'AnhGoc')==0 )
+     msgbox('Bạn chưa chọn ảnh!!', 'Error','error');
+else
+    AnhDaNhungThuyVan = handles.AnhDaNhungThuyVan;
+    AnhGoc=handles.AnhGoc;
 
-[anhgoc_LL1,anhgoc_LH1,anhgoc_HL1,anhgoc_HH1]=dwt2(AnhGoc,'haar');
-[wm_LL1,wm_LH1,wm_HL1,wm_HH1]=dwt2(AnhDaNhungThuyVan,'haar');
+    [anhgoc_LL1,anhgoc_LH1,anhgoc_HL1,anhgoc_HH1]=dwt2(AnhGoc,'haar');
+    [wm_LL1,wm_LH1,wm_HL1,wm_HH1]=dwt2(AnhDaNhungThuyVan,'haar');
 
-% Trich xuat
-r_SVD=my_svd(double(wm_HH1),double(anhgoc_HH1));
+    % Trich xuat
+    r_SVD=my_svd(double(wm_HH1),double(anhgoc_HH1));
 
-% Dao nguoc SVD va hien thi ket qua
-anhTachThuyVan =uint8(r_SVD);
-axes(handles.anhDuocTrichXuat);
-imshow(anhTachThuyVan);
+    % Dao nguoc SVD va hien thi ket qua
+    anhTachThuyVan =uint8(r_SVD);
+    axes(handles.anhDuocTrichXuat);
+    imshow(anhTachThuyVan);
 
-% Lay lai anh thuy van sau inerverse Arnold
-% key = str2num(get(handles.keyArnold, 'string'));
-% anhTachThuyVan = IArnold(anhTachThuyVan, key);
-% axes(handles.anhInverseArnold);
-% imshow(anhTachThuyVan);
+    % Lay lai anh thuy van sau inerverse Arnold
+    % key = str2num(get(handles.keyArnold, 'string'));
+    % anhTachThuyVan = IArnold(anhTachThuyVan, key);
+    % axes(handles.anhInverseArnold);
+    % imshow(anhTachThuyVan);
 
-handles.anhTachThuyVan = anhTachThuyVan;
+    msgbox("Trích xuất thành công ảnh thuỷ vân")
+
+    handles.anhTachThuyVan = anhTachThuyVan;
+end
 guidata(hObject, handles);
 
 
@@ -145,11 +151,17 @@ function luuAnh_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 global var;
-[filename,pathname,filterindex]=uiputfile({'*.jpg;*.jpeg;*.gif;*.tif;*.tiff;*.rgb;*.bmp;*.png',...
-    'All support image files';'*.jpg;*.jpeg','JPEG files(*.jpg;*.jpeg)';'*.gif','GIF files (*.gif)';...
-    '*.tif;*.tiff','TIFF files (*.tif;*.tiff)';'*.bmp','Bitmap files (*.bmp)';'*.png','PNG files (*.png)'},'Luu dang file anh');
-var=strcat(pathname,filename);
-imwrite(uint8(handles.watermark_logo_extracted_after_inver_arnold),var);
+if(isfield(handles, 'AnhDaNhungThuyVan')==0 ||isfield(handles, 'AnhGoc')==0 )
+     msgbox('Bạn chưa chọn ảnh!!', 'Error','error');
+else
+    [filename,pathname,filterindex]=uiputfile({'*.jpg;*.jpeg;*.gif;*.tif;*.tiff;*.rgb;*.bmp;*.png',...
+        'All support image files';'*.jpg;*.jpeg','JPEG files(*.jpg;*.jpeg)';'*.gif','GIF files (*.gif)';...
+        '*.tif;*.tiff','TIFF files (*.tif;*.tiff)';'*.bmp','Bitmap files (*.bmp)';'*.png','PNG files (*.png)'},'Luu dang file anh');
+    var=strcat(pathname,filename);
+    imwrite(uint8(handles.watermark_logo_extracted_after_inver_arnold),var);
+    msgbox("Lưu thành công ảnh thuỷ vân")
+end
+
 
 
 function rSVD=my_svd(out1,out2)
