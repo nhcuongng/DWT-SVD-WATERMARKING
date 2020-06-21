@@ -158,7 +158,7 @@ else
         'All support image files';'*.jpg;*.jpeg','JPEG files(*.jpg;*.jpeg)';'*.gif','GIF files (*.gif)';...
         '*.tif;*.tiff','TIFF files (*.tif;*.tiff)';'*.bmp','Bitmap files (*.bmp)';'*.png','PNG files (*.png)'},'Luu dang file anh');
     var=strcat(pathname,filename);
-    imwrite(uint8(handles.watermark_logo_extracted_after_inver_arnold),var);
+    imwrite(uint8(handles.anhTachThuyVan),var);
     msgbox("Lưu thành công ảnh thuỷ vân")
 end
 

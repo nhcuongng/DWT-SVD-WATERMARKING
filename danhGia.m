@@ -22,7 +22,7 @@ function varargout = danhGia(varargin)
 
 % Edit the above text to modify the response to help danhGia
 
-% Last Modified by GUIDE v2.5 19-Jun-2020 14:17:38
+% Last Modified by GUIDE v2.5 20-Jun-2020 23:48:56
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -54,7 +54,6 @@ function danhGia_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for danhGia
 handles.output = hObject;
-
 % Update handles structure
 guidata(hObject, handles);
 
@@ -111,7 +110,8 @@ function btnDanhGia_Callback(hObject, eventdata, handles)
 % Truoc tan cong
 if(isfield(handles, 'anhGoc')==0 ||isfield(handles, 'anhThuyVan')==0 )
   msgbox('Bạn chưa chọn ảnh!!', 'Error','error');
-else
+  return;
+end
 anhGoc=handles.anhGoc;
 anhThuyVan=handles.anhThuyVan;
 axes(handles.axes2);        
@@ -123,7 +123,6 @@ imshow(anhThuyVan);
 set(handles.txt_ncc,'String',ncc);
 set(handles.txt_psnr,'String',psnr);
 set(handles.txt_mse,'String',mse);
-end
 
 function  Image=OpenImage()
 [fname, anhmau]=uigetfile({'*.png;*.tif;*bmp'},'Chon anh '); %select image
@@ -142,3 +141,20 @@ xlabel('Anh phủ');
 subplot(2,1,2)
 histogram(handles.anhThuyVan);
 xlabel('Anh thuỷ vân');
+
+
+% --- Executes on button press in btnKhuNhieu.
+function btnKhuNhieu_Callback(hObject, eventdata, handles)
+% hObject    handle to btnKhuNhieu (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+if(isfield(handles, 'anhGoc')==0 ||isfield(handles, 'anhThuyVan')==0 )
+  msgbox('Bạn chưa chọn ảnh!!', 'Error','error');
+else
+    anhGoc=medfilt2(handles.anhGoc);
+
+    axes(handles.axes1)             %Fisso l'axes per il plot
+    imshow(anhGoc)
+    handles.anhGoc=anhGoc;
+    guidata(hObject, handles);
+end

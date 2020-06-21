@@ -22,7 +22,7 @@ function varargout = Attacking(varargin)
 
 % Edit the above text to modify the response to help Attacking
 
-% Last Modified by GUIDE v2.5 18-Jun-2020 16:03:22
+% Last Modified by GUIDE v2.5 21-Jun-2020 00:03:30
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -107,9 +107,6 @@ imshow(ImgAttacked);
 set(handles.txt_ncc,'String',ncc);
 % PSNR
 set(handles.txt_psnr,'String',psnr);
-% MSE
-set(handles.txt_mse,'String',mse);
-handles.ImgAttacked = ImgAttacked;
 
 end
 guidata(hObject, handles);
@@ -164,7 +161,6 @@ imshow(anhThuyVan);
 
 set(handles.txt_ncc,'String',ncc);
 set(handles.txt_psnr,'String',psnr);
-set(handles.txt_mse,'String',mse);
 end
 
 
@@ -326,9 +322,23 @@ imshow(ImgAttacked);
 set(handles.txt_ncc,'String',ncc);
 % PSNR
 set(handles.txt_psnr,'String',psnr);
-% MSE
-set(handles.txt_mse,'String',mse);
-handles.ImgAttacked = ImgAttacked;
 
 end
 guidata(hObject, handles);
+
+
+% --- Executes on button press in btnKhuNhieu.
+function btnKhuNhieu_Callback(hObject, eventdata, handles)
+% hObject    handle to btnKhuNhieu (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+if(isfield(handles, 'anhGoc')==0 ||isfield(handles, 'anhThuyVan')==0 )
+  msgbox('Bạn chưa chọn ảnh!!', 'Error','error');
+else
+    anhGoc=medfilt2(handles.anhGoc);
+
+    axes(handles.axes1)             %Fisso l'axes per il plot
+    imshow(anhGoc)
+    handles.anhGoc=anhGoc;
+    guidata(hObject, handles);
+end
