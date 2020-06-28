@@ -22,7 +22,7 @@ function varargout = Attacking(varargin)
 
 % Edit the above text to modify the response to help Attacking
 
-% Last Modified by GUIDE v2.5 21-Jun-2020 00:03:30
+% Last Modified by GUIDE v2.5 28-Jun-2020 10:21:45
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -300,16 +300,13 @@ if(TypeAttack==1)
     % Rotation attack
     ImgAttacked = rotationAttack(anhThuyVan, 45);
 elseif(TypeAttack==2)
-    % Mean attack
-    ImgAttacked = meanAttack(anhThuyVan); 
-elseif(TypeAttack==3)
     % Median attack
     ImgAttacked = medianAttack(anhThuyVan);
-elseif(TypeAttack==4)
+elseif(TypeAttack==3)
     % Crop attack
     attackedImage = cropAttack(anhThuyVan);
     ImgAttacked = imresize(attackedImage, [512 512]);
-elseif(TypeAttack==5)
+elseif(TypeAttack==4)
     % Shear Attack
     attackedImage = shearAttack(anhThuyVan);
     ImgAttacked = imresize(attackedImage, [512 512]);

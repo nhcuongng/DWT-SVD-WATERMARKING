@@ -22,7 +22,7 @@ function varargout = emmbeding(varargin)
 
 % Edit the above text to modify the response to help emmbeding
 
-% Last Modified by GUIDE v2.5 18-Jun-2020 22:37:49
+% Last Modified by GUIDE v2.5 28-Jun-2020 10:56:51
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -82,10 +82,6 @@ anhPhu=imread(strcat(anhmau,fname));
 
 anhPhu = ChangeImageToGray(anhPhu);
 axes(handles.hienThiAnhPhu)  %Fisso l'axes per il plot
-imshow(anhPhu)
-
-anhPhu = medfilt2(anhPhu);
-axes(handles.hienThiAnhKhuNhieu)  %Fisso l'axes per il plot
 imshow(anhPhu)
 
 handles.anhPhu = anhPhu;
@@ -186,4 +182,20 @@ if(p==3)
     outImage = rgb2gray(img);
 else
     outImage = img;
+end
+
+
+% --- Executes on button press in khuNhieu.
+function khuNhieu_Callback(hObject, eventdata, handles)
+% hObject    handle to khuNhieu (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+if(isfield(handles, 'anhPhu')==0)
+     msgbox('Bạn chưa chọn ảnh gốc!!', 'Error','error');
+else
+    anhPhu = medfilt2(handles.anhPhu);
+    handles.anhPhu = anhPhu;
+    axes(handles.hienThiAnhKhuNhieu)  %Fisso l'axes per il plot
+    imshow(anhPhu)
+    guidata(hObject, handles);
 end

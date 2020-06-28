@@ -22,7 +22,7 @@ function varargout = extraction(varargin)
 
 % Edit the above text to modify the response to help extraction
 
-% Last Modified by GUIDE v2.5 20-Jun-2020 22:51:44
+% Last Modified by GUIDE v2.5 28-Jun-2020 11:13:55
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -97,10 +97,6 @@ anhGoc=imread(strcat(anhmau,fname));
 
 anhGoc = ChangeImageToGray(anhGoc);
 axes(handles.hienThiAnhGocNhieu)  %Fisso l'axes per il plot
-imshow(anhGoc)
-
-anhGoc = medfilt2(anhGoc);
-axes(handles.hienThiAnhKhuNhieu)  %Fisso l'axes per il plot
 imshow(anhGoc)
 
 handles.AnhGoc= anhGoc;
@@ -181,4 +177,20 @@ if(p==3)
     outImage = rgb2gray(img);
 else
     outImage = img;
+end
+
+
+% --- Executes on button press in khuNhieu.
+function khuNhieu_Callback(hObject, eventdata, handles)
+% hObject    handle to khuNhieu (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+if(isfield(handles, 'AnhGoc')==0)
+     msgbox('Bạn chưa chọn ảnh gốc!!', 'Error','error');
+else
+    AnhGoc = medfilt2(handles.AnhGoc);
+    handles.AnhGoc = AnhGoc;
+    axes(handles.hienThiAnhKhuNhieu)  %Fisso l'axes per il plot
+    imshow(AnhGoc)
+    guidata(hObject, handles);
 end
